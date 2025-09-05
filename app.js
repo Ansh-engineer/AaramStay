@@ -3,7 +3,7 @@ const app = express();
 const path = require("path");
 const mongoose = require('mongoose');
 const Listing = require("../AaramStay/models/listing.js");
-
+var methodOverride = require('method-override')
 const MONGO_URL = "mongodb://127.0.0.1:27017/AaramStay";
 
 main()
@@ -21,7 +21,7 @@ async function main() {
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true})); 
-
+app.use(methodOverride("_method"))
 
 app.get("/",(req,res)=>{
     res.send("hi");
@@ -54,6 +54,19 @@ app.post("/listing",async(req,res)=>{
   res.redirect("/listing");
 })
 
+// updating form route
+app.get("/listing/:id/edit",async(req,res)=>{
+    let {id} = req.params;
+    let listing = await Listing.findById(id);
+    res.render("listing/edit.ejs",{listing});
+})
+
+//updating route
+app.put("/listing/:id/edit",async(req,res)=>{
+       let {id} = req.params;
+      await Listing.findByIdAndUpdate(id,{...req.body.listing});
+       res.redirect(`/listing/${id}`);
+})
 
 // app.get("/listingtesting",async(req,res)=>{
 //      let sampletesting = new Listing({
