@@ -1,8 +1,17 @@
-body {
+html,body {
   font-family: "Plus Jakarta Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+.container {
+  flex: 1;
+}
 
+footer {
+  margin-top: auto;
+}
 
 /* navbar */
 
@@ -103,4 +112,19 @@ body {
 .btn-edit{
    background-color: #fe424d !important;
     border: none !important;
+}
+
+/* show route */
+
+.show-img{
+  height: 30vh;
+}
+
+.btns{
+  display: flex;
+}
+
+.show-cars{
+  padding-left: 0;
+  padding-right: 0;
 }
