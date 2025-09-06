@@ -11,8 +11,8 @@ const listingSchema=new Schema({
         filename:String,
         url:{
          type:String,
-        default:"https://unsplash.com/photos/a-lake-surrounded-by-trees-and-mountains-0G0EpijTqOY",
-        set:(v)=>v===""?"https://unsplash.com/photos/a-lake-surrounded-by-trees-and-mountains-0G0EpijTqOY":v,
+        default:"https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
+        set:(v)=>v===""?"https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60":v,
         },
     },
     price:Number,
