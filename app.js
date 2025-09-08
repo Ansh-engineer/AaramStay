@@ -31,6 +31,7 @@ app.get("/",(req,res)=>{
 })
 
 // index route
+
 app.get("/listing",async(req,res)=>{
     const alllisting = await Listing.find({});
     res.render("listing/index.ejs",{alllisting});
@@ -51,11 +52,17 @@ app.get("/listing/:id",async(req,res)=>{
 
 
 // adding new listing
-app.post("/listing",async(req,res)=>{
-   let newlisting = new Listing(req.body.listing);
-  await newlisting.save();
-  res.redirect("/listing");
-})
+app.post("/listing", async (req, res, next) => {
+  try {
+    let newlisting = new Listing(req.body.listing);
+    await newlisting.save();
+    res.redirect("/listing");
+  } catch (err) {
+    next(err); 
+  }
+});
+
+
 
 // updating form route
 app.get("/listing/:id/edit",async(req,res)=>{
@@ -93,6 +100,10 @@ app.delete("/listing/:id", async(req,res)=>{
 //     console.log("sample was saved");
 //     res.send("working");
 // })
+
+app.use((err,req,res,next)=>{
+    res.send("something went wrong");
+})
 
 const port = 8080;
 app.listen(port,()=>{
