@@ -9,6 +9,8 @@ const MONGO_URL = "mongodb://127.0.0.1:27017/AaramStay";
 const wrapAsync = require("./utils/wrapAsync.js");
 const expressError = require("./utils/expressError.js");
  const {listingSchema} = require("./schema.js")
+ const Review = require("../AaramStay/models/review.js");
+ const {reviewSchema} = require("./schema.js")
  
 
 
@@ -41,6 +43,19 @@ const validateListing = (req,res,next)=>{
      }
 }
 
+// server side validation for review
+const validatereview = (req,res,next)=>{
+    let {error} = reviewSchema.validate(req.body);
+     if(error){
+        let errmsg = error.details.map(el=>el.message).join(",");
+        throw new expressError(400,errmsg);
+     }else{
+        next();
+     }
+}
+
+
+
 app.get("/",(req,res)=>{
     res.send("hi");
 })
@@ -63,7 +78,7 @@ app.get("/listing/new",(req,res)=>{
 
 app.get("/listing/:id",wrapAsync( async(req,res)=>{
       let {id} = req.params;
-      let listing = await Listing.findById(id);
+      let listing = await Listing.findById(id).populate("reviews");
       res.render("listing/show.ejs",{listing});
 }));
 
@@ -104,6 +119,32 @@ app.delete("/listing/:id",wrapAsync( async(req,res)=>{
     res.redirect("/listing");
 }));
 
+// review 
+// Post route
+
+app.post("/listing/:id/review",validatereview , wrapAsync( async(req,res)=>{
+    let{id} = req.params;
+   let listing  = await Listing.findById(id);
+   let newreview = await new Review(req.body.review);
+   listing.reviews.push(newreview);
+   await newreview.save();
+   await listing.save();
+   res.redirect(`/listing/${id}`);
+}));
+
+//review
+// delete route
+
+app.delete("/listing/:id/review/:reviewid", wrapAsync( async(req,res)=>{
+        let{id , reviewid} = req.params;
+        await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewid}});
+       await Review.findByIdAndDelete(reviewid);
+       res.redirect(`/listing/${id}`);
+
+}));
+
+
+
 // app.get("/listingtesting",async(req,res)=>{
 //      let sampletesting = new Listing({
 //         title:"My home",
@@ -124,8 +165,7 @@ app.use((req,res,next)=>{
 
 app.use((err,req,res,next)=>{
     let{status =500,message="something went wrong!"} = err;
-    res.render("error.ejs",{message});
-    // res.status(status).send(message);
+    res.status(status).render("error.ejs", { message });
 })
 
 const port = 8080;
