@@ -11,12 +11,16 @@ const expressError = require("./utils/expressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 
 const Review = require("../AaramStay/models/review.js");
-const listing = require("./routes/listing.js");
-const review = require("./routes/review.js");
+const listingrouter = require("./routes/listing.js");
+const reviewrouter = require("./routes/review.js");
+const userrouter = require("./routes/user.js");
 
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
 
 main()
   .then(() => {
@@ -59,14 +63,32 @@ app.get("/", (req, res) => {
 app.use(session(sessionOptions));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req,res,next)=>{
       res.locals.success = req.flash("success");
       res.locals.error = req.flash("error");
+      res.locals.curruser = req.user;
       next(); 
 });
 
-app.use("/listing", listing);
-app.use("/listing/:id/review", review);
+// app.get("/demo", async(req,res)=>{
+//    let fakeuser = new User({
+//     email:"student@gmail.com",
+//     username:"student23",
+//    });
+
+//  let newuser =   await User.register(fakeuser,"helloworld");
+//  res.send(newuser);
+// })
+
+app.use("/listing", listingrouter);
+app.use("/listing/:id/review", reviewrouter);
+app.use("/",userrouter);
 
 
 app.use((req, res, next) => {
