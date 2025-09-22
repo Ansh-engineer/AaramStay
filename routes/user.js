@@ -38,6 +38,7 @@ router.get("/login",(req,res)=>{
 router.post("/login",saveRedirectUrl, passport.authenticate("local",{failureRedirect:"/login" , failureFlash:true})  ,(req,res)=>{
      req.flash("success","Welocme back to AaramStay");
      let redirectUrl = res.locals.redirectUrl || "/listing";
+     delete req.session.redirectUrl;
      res.redirect(redirectUrl);
 })
 
