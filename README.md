@@ -1,24 +1,25 @@
 AaramStay
 
-AaramStay is a full-stack room stay and accommodation platform built with Node.js, Express, MongoDB, and EJS. It allows users to browse, reserve, and manage room listings for short stays, providing a seamless experience for both guests and authenticated users.
+AaramStay is a full-stack stay and accommodation sharing platform built with Node.js, Express, MongoDB, and EJS. It enables users to browse, share, and manage unique stay listings, while offering a smooth experience for both guests and authenticated users.
 
 🚀 Features
 
+
+Stay Listings: Browse a variety of stays and accommodations.
+
+Booking System: Guests can reserve stays for specific dates with ease.
+
+Review System: Users can add and manage reviews for each stay.
+
+CRUD Operations: Create, Read, Update, and Delete listings and reviews.
+
+Responsive Design: Mobile-friendly interface for travel on the go.
+
 User Authentication: Secure login and registration with session management.
 
-Room Listings: Browse available rooms for comfortable night stays.
+Featured Listings: Highlighted stays for quick exploration.
 
-Reservation System: Users can reserve rooms and get charged for their stay.
-
-Review System: Guests can add and manage reviews for rooms.
-
-CRUD Operations: Create, Read, Update, and Delete room listings and reviews.
-
-Responsive Design: Mobile-friendly interface for on-the-go browsing.
-
-Featured Rooms: Browse highlighted stays for quick selection.
-
-Detailed Room Info: See pricing, availability, amenities, and location.
+Detailed Stay Info: View pricing, amenities, location, and guest reviews.
 
 🛠️ Technologies Used
 
@@ -66,15 +67,15 @@ http://localhost:8080/listing
 
 📄 Usage
 
-Home Page: View featured rooms and navigate easily.
+Home Page: Explore featured stays and navigate easily.
 
-Room Listings: Browse all available stays with filtering options.
+Listings: Browse all available accommodations .
 
-Reserve a Room: Authenticated users can reserve rooms for a night.
+Book a Stay: Authenticated users can reserve accommodations for chosen dates.
 
 Reviews: Add and manage reviews for each stay.
 
-Authentication: Sign up, log in, and log out to manage reservations.
+Authentication: Sign up, log in, and log out to manage your profile and bookings.
 
 🤝 Contributing
 
