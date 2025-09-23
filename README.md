@@ -1,26 +1,24 @@
-#AaramStay
+AaramStay
 
-AaramStay is a full-stack real estate listing platform built with Node.js, Express, MongoDB, and EJS. It allows users to browse, add, and manage property listings, while providing a seamless experience for both guests and authenticated users.
+AaramStay is a full-stack room stay and accommodation platform built with Node.js, Express, MongoDB, and EJS. It allows users to browse, reserve, and manage room listings for short stays, providing a seamless experience for both guests and authenticated users.
 
 🚀 Features
 
 User Authentication: Secure login and registration with session management.
 
-Property Listings: View and filter available properties.
+Room Listings: Browse available rooms for comfortable night stays.
 
-Review System: Users can add and manage reviews for properties.
+Reservation System: Users can reserve rooms and get charged for their stay.
 
-CRUD Operations: Create, Read, Update, and Delete listings and reviews.
+Review System: Guests can add and manage reviews for rooms.
+
+CRUD Operations: Create, Read, Update, and Delete room listings and reviews.
 
 Responsive Design: Mobile-friendly interface for on-the-go browsing.
 
-Browse through featured listings.
+Featured Rooms: Browse highlighted stays for quick selection.
 
-
-View detailed information about a property.
-
-
-Read and add reviews to listings.
+Detailed Room Info: See pricing, availability, amenities, and location.
 
 🛠️ Technologies Used
 
@@ -36,10 +34,9 @@ Session Management: Express-session
 
 Flash Messages: Connect-flash
 
-📦 Installation
-Prerequisites
+📦 Installation Prerequisites
 
-Ensure you have the following installed:
+Make sure you have:
 
 Node.js
 
@@ -63,23 +60,25 @@ Start the application:
 node app.js
 
 
-The app will be running at http://localhost:8080/listing.
+Open in browser:
+
+http://localhost:8080/listing
 
 📄 Usage
 
-Home Page: View featured listings and navigate to different sections.
+Home Page: View featured rooms and navigate easily.
 
-Listings: Browse all available properties with filtering options.
+Room Listings: Browse all available stays with filtering options.
 
-Add Listing: Authenticated users can add new property listings.
+Reserve a Room: Authenticated users can reserve rooms for a night.
 
-Reviews: Add and manage reviews for each property.
+Reviews: Add and manage reviews for each stay.
 
-Authentication: Sign up, log in, and log out to manage your account.
+Authentication: Sign up, log in, and log out to manage reservations.
 
 🤝 Contributing
 
-Contributions are welcome! To get started:
+Contributions are welcome!
 
 Fork the repository.
 
@@ -95,5 +94,4 @@ Open a pull request.
 
 📬 Contact
 
-For any inquiries or feedback, please reach out to Ansh-engineer
-.
+For any inquiries or feedback, please reach out to Ansh-engineer.
