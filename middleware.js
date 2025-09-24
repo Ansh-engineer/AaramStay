@@ -16,13 +16,15 @@ module.exports.isLoggedIn = (req, res, next) => {
 
 
 module.exports.saveRedirectUrl = (req, res, next) => {
-  if (req.session.redirectUrl) {
+  if (req.session.redirectUrl && !req.session.redirectUrl.includes("undefined")) {
     res.locals.redirectUrl = req.session.redirectUrl;
+  } else {
+    res.locals.redirectUrl = "/listing"; // fallback
   }
-   
-
   next();
 };
+
+
 
 module.exports.isOwner = async (req, res, next) => {
   let listing = await Listing.findById(id);

@@ -4,52 +4,16 @@ const User = require("../models/user");
 const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
 const { saveRedirectUrl } = require("../middleware");
+const userscontrollers = require("../controllers/users");
 
-router.get("/signup",(req,res)=>{
-    res.render("users/signup.ejs");
-})
+router.get("/signup",userscontrollers.rendersignup);
 
-router.post("/signup", wrapAsync ( async(req,res)=>{
-    try{
-    let{email,username,password} = req.body;
-    let newuser = new User({
-       email,username
-    });
-    const registereduser = await User.register(newuser,password);
-    console.log(registereduser);
-    req.login(registereduser,(err)=>{
-        if(err){
-            return next(err);
-        }
-        req.flash("success","Welcome to AaramStay");
-    res.redirect("/listing");
-    })
-    
-}  catch(e){
-    req.flash("error",e.message);
-    res.redirect("./signup");
-}
-}));
+router.post("/signup", wrapAsync (userscontrollers.signup));
 
-router.get("/login",(req,res)=>{
-    res.render("users/login.ejs");
-})
+router.get("/login",userscontrollers.renderlogin);
 
-router.post("/login",saveRedirectUrl, passport.authenticate("local",{failureRedirect:"/login" , failureFlash:true})  ,(req,res)=>{
-     req.flash("success","Welocme back to AaramStay");
-     let redirectUrl = res.locals.redirectUrl || "/listing";
-     delete req.session.redirectUrl;
-     res.redirect(redirectUrl);
-})
+router.post("/login",saveRedirectUrl, passport.authenticate("local",{failureRedirect:"/login" , failureFlash:true})  ,userscontrollers.login);
 
-router.get("/logout",(req,res,next)=>{
-    req.logout((err)=>{
-        if(err){
-            return next(err);
-        }
-        req.flash("success","You logged out successfully!!");
-        res.redirect("/listing");
-    })
-})
+router.get("/logout",userscontrollers.logout);
 
 module.exports = router;
