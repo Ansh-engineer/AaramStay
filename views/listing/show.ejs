@@ -28,7 +28,7 @@
     <div class="btns">
       <a
         href="/listing/<%=listing._id%>/edit"
-        class="btn btn-dark col-1 offset-3 btn-edit"
+        class="btn btn-dark btn-edit offset-3 "
         >Edit</a
       >
 
@@ -91,16 +91,21 @@
       <p><b>All Reviews</b></p>
       <div class="row col-10 offset-3 ">
       <% for(let review of listing.reviews){ %>
-      <div class="card col-5 ms-3 mb-3">
+      <div class="card col-9 ms-3 mb-3">
         <div class="card-body">
           <h5 class="card-title"><%=review.author.username %></h5>
-          <p class="starability-result" data-rating="<%=review.rating %>"></p> </p>
+          <p class="starability-result " data-rating="<%=review.rating %>"></p> </p>
           <p class="card-text"><%=review.comment %></p>
           
         </div><br>
+
+         <% if(curruser && review.author._id.equals(curruser._id)){ %>
         <form class="mb-3" method="post" action="/listing/<%= listing._id%>/review/<%=review._id %>?_method=DELETE">
+        
           <button class="btn btn-dark btn-sm">Delete</button>
+     
         </form>
+           <%  }  %>
       </div>
 
       <% } %>
