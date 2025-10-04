@@ -128,3 +128,19 @@ footer {
   padding-left: 0;
   padding-right: 0;
 }
+
+
+ @media (max-width: 767.98px) {
+  .navbar-collapse {
+    background-color: #fff;
+  }
+
+  body {
+    padding-top: calc(56px + 0px); 
+  }
+
+ 
+  .navbar-collapse.collapse.show {
+    position: relative; 
+  }
+} 

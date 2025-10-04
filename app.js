@@ -5,7 +5,10 @@ const mongoose = require("mongoose");
 const Listing = require("../AaramStay/models/listing.js");
 var methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const MONGO_URL = "mongodb://127.0.0.1:27017/AaramStay";
+const MongoStore = require('connect-mongo');
+// const MONGO_URL = "mongodb://127.0.0.1:27017/AaramStay";
+require("dotenv").config();
+const dbURL = process.env.ATLASDB_URL;
 const wrapAsync = require("./utils/wrapAsync.js");
 const expressError = require("./utils/expressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
@@ -21,6 +24,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const { error } = require("console");
 
 main()
   .then(() => {
@@ -31,7 +35,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbURL);
 }
 
 app.set("view engine", "ejs");
@@ -44,8 +48,22 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 app.use(cookieParser("secretcode"));
 
+const store = MongoStore.create({
+  mongoUrl:dbURL,
+  crypto:{
+    secret:process.env.SECRET,
+  },
+  touchAfter:24*3600,
+});
+
+store.on("error",()=>{
+  console.log("Errorin  mongo session",err);
+})
+
+
 const sessionOptions = {
-  secret:"secretcode",
+  store,
+  secret:process.env.SECRET,
   resave: false,
   saveUninitialized:true,
   cookie:{
@@ -55,10 +73,7 @@ const sessionOptions = {
   }
 }
 
-app.get("/", (req, res) => {
-    
-  res.send("hi");
-});
+
 
 app.use(session(sessionOptions));
 app.use(flash());
