@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
-const Listing = require("../AaramStay/models/listing.js");
+const Listing = require("./models/listing.js");
 var methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const MongoStore = require('connect-mongo');
@@ -13,7 +13,7 @@ const wrapAsync = require("./utils/wrapAsync.js");
 const expressError = require("./utils/expressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 
-const Review = require("../AaramStay/models/review.js");
+const Review = require("./models/review.js");
 const listingrouter = require("./routes/listing.js");
 const reviewrouter = require("./routes/review.js");
 const userrouter = require("./routes/user.js");
